@@ -1,0 +1,108 @@
+<app-no-privilege *ngIf="!privilege.showOne" message="No privilege to show more details of a purchase"></app-no-privilege>
+<app-object-not-found *ngIf="loaded && !purchase" message="Purchase Not Found"></app-object-not-found>
+<app-loading *ngIf="!loaded"></app-loading>
+<div *ngIf="purchase && privilege.showOne">
+  <app-page-header
+    title="Purchase Detail Page of {{ purchase.code }}"
+    [breadcrumbSegments]="['Purchases', 'Show All Purchases', 'Details of ' + purchase.code]"
+  ></app-page-header>
+  <div class="row">
+    <div class="col-md-4">
+      <mat-card class="example-card">
+        <mat-card-content>
+          <table class="w-100 table-striped custom-data-table">
+            <tbody>
+              <tr>
+                <th>Created Date</th>
+                <td>{{purchase.tocreation | date}}</td>
+              </tr>
+              <tr>
+                <th>Created Time</th>
+                <td>{{purchase.tocreation | date: 'shortTime': '+0530'}}</td>
+              </tr>
+              <tr>
+                <th>Creator</th>
+                <td>{{getUserDisplayName(purchase.creator)}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="col-md-8">
+      <mat-card class="example-card">
+        <mat-card-content style="min-height: 450px;">
+          <mat-tab-group>
+            <mat-tab label="Purchase Order">
+              <mat-card class="example-card">
+                <mat-card-content>
+                  <table class="w-100 table-striped custom-data-table">
+                    <tbody>
+                    <tr>
+                      <th>Code</th>
+                      <td>{{purchase.code}}</td>
+                    </tr>
+                    <tr>
+                      <th>Date</th>
+                      <td>{{purchase.date | date: 'fullDate'}}</td>
+                    </tr>
+                    <tr>
+                      <th>Supplier Name</th>
+                      <td>{{purchase.supplier.name}}</td>
+                    </tr>
+                    <tr *ngIf="purchase.porder">
+                      <th>Purchase Order ID</th>
+                      <td>{{purchase.porder.code}}</td>
+                    </tr>
+                    <tr>
+                      <th>Discount</th>
+                      <td>{{purchase.discount | currency :'Rs.'}}</td>
+                    </tr>
+                    <tr>
+                      <th>Total Price</th>
+                      <td>{{purchase.total | currency :'Rs.'}}</td>
+                    </tr>
+                    <tr>
+                      <th>Description</th>
+                      <td [innerHTML]="purchase.description | nl2br"></td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </mat-card-content>
+              </mat-card>
+            </mat-tab>
+            <mat-tab label="Materials">
+              <mat-card class="example-card">
+                <mat-card-content>
+                  <table class="w-100 table-striped custom-data-table">
+                    <thead>
+                    <tr>
+                      <th>Material</th>
+                      <th>Quantity</th>
+                      <th>Price Per Unit</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let purchasematerial of purchase.purchasematerialList">
+                        <td>{{purchasematerial.material.brand.name}} {{purchasematerial.material.name}}</td>
+                        <td>{{purchasematerial.qty}}</td>
+                        <td>{{purchasematerial.unitprice}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </mat-card-content>
+              </mat-card>
+            </mat-tab>
+          </mat-tab-group>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+  <div class="d-flex mt-5">
+    <button *ngIf="privilege.delete" (click)="delete()" class="ml-0" mat-raised-button color="warn"><mat-icon>delete</mat-icon> Delete</button>
+    <span class="spacer"></span>
+    <button *ngIf="privilege.update" routerLink="/purchases/edit/{{purchase.id}}" mat-raised-button color="accent"><mat-icon>edit</mat-icon> Change</button>
+    <button *ngIf="privilege.add" routerLink="/purchases/add" mat-stroked-button><mat-icon>add</mat-icon> New Purchase</button>
+    <button *ngIf="privilege.showAll" routerLink="/purchases" class="mr-0" mat-raised-button color="primary"><mat-icon>list</mat-icon> All Purchases</button>
+  </div>
+</div>

@@ -1,0 +1,116 @@
+<app-no-privilege message="No privilege to add new purchase" *ngIf="!privilege.add"></app-no-privilege>
+<div *ngIf="privilege.add">
+  <app-page-header title="Purchase Form" [breadcrumbSegments]="['Purchases', 'Add New Purchase']"></app-page-header>
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <mat-card>
+      <mat-card-content>
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md-6">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Date</mat-label>
+                <input matInput [max]="dateValidator()" [matDatepicker]="pickerdate" formControlName="date" required>
+                <mat-datepicker-toggle matSuffix [for]="pickerdate"></mat-datepicker-toggle>
+                <mat-datepicker #pickerdate></mat-datepicker>
+                <mat-hint>Ex: 2021/01/01</mat-hint>
+                <mat-error *ngIf="dateField.invalid">
+                  <span *ngIf="dateField.errors.required">Date is required</span>
+                  <span *ngIf="dateField.errors.server">{{dateField.errors.server.join(', ')}}</span>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md-6">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Purchase Order Id</mat-label>
+                  <mat-select (selectionChange)="loadSupplier()" formControlName="porder" >
+                    <mat-option *ngFor="let porder of porders" [value]="porder">{{porder.code}}</mat-option>
+                  </mat-select>
+                <mat-error *ngIf="porderField.invalid">
+                  <span *ngIf="porderField.errors.server">{{porderField.errors.server.join(', ')}}</span>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Supplier Name</mat-label>
+<!--                <mat-select formControlName="supplier" required>-->
+                  <input matInput formControlName="supplier" required>
+<!--                  <mat-option *ngFor="let supplier of suppliers" [value]="supplier.id">{{supplier.name}}</mat-option>-->
+<!--                </mat-select>-->
+                <mat-error *ngIf="supplierField.invalid">
+<!--                  <span *ngIf="supplierField.errors.required">Select at lease one supplier name</span>-->
+                  <span *ngIf="supplierField.errors.server">{{supplierField.errors.server.join(', ')}}</span>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <h3 class="mb-0 mat-subheading-1 font-weight-light">Materials</h3>
+          <app-purchasematerial-sub-form [min]="0" [max]="0" formControlName="purchasematerials"></app-purchasematerial-sub-form>
+          <div class="error-box" *ngIf="purchasematerialsField.invalid && !purchasematerialsField.pristine">
+            <p *ngIf="purchasematerialsField.errors.min">Should has at least 0 materials</p>
+            <p *ngIf="purchasematerialsField.errors.max">Maximum allowed only 0 Materials</p>
+<!--            <span *ngIf="purchasematerialsField.errors.required">Unit Price cannot be null</span>-->
+                <span *ngIf="purchasematerialsField.errors.server">{{purchasematerialsField.errors.server.join(', ')}}</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md-6">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Discount</mat-label>
+                <input type="number" matInput formControlName="discount" >
+                <mat-hint>Ex: 100.00</mat-hint>
+                <mat-error *ngIf="discountField.invalid">
+                  <span *ngIf="discountField.errors.server">{{discountField.errors.server.join(', ')}}</span>
+                  <span *ngIf="discountField.errors.minlength">Discount should be equal or greater than 2</span>
+                  <span *ngIf="discountField.errors.maxlength">Discount should be equal or less than 10</span>
+                  <span *ngIf="discountField.errors.pattern">Discount is invalid.</span>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Total Price</mat-label>
+                <input type="number" matInput formControlName="total" >
+                <mat-hint>Ex: 100.00</mat-hint>
+                <mat-error *ngIf="totalField.invalid">
+                  <span *ngIf="totalField.errors.server">{{totalField.errors.server.join(', ')}}</span>
+                  <span *ngIf="totalField.errors.minlength">Total Price should be equal or greater than 2</span>
+                  <span *ngIf="totalField.errors.maxlength">Total Price should be equal or less than 10</span>
+                  <span *ngIf="totalField.errors.pattern">Total Price is invalid.</span>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Description</mat-label>
+            <textarea matInput formControlName="description" ></textarea>
+            <mat-hint>Ex: </mat-hint>
+            <mat-error *ngIf="descriptionField.invalid">
+              <span *ngIf="descriptionField.errors.server">{{descriptionField.errors.server.join(', ')}}</span>
+              <span *ngIf="descriptionField.errors.minlength">Description should has at least null characters. </span>
+              <span *ngIf="descriptionField.errors.maxlength">Description can have a maximum of 5000 characters. </span>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="text-right mt-5 d-flex">
+          <button *ngIf="privilege.showAll" routerLink="/purchases" class="ml-0" mat-flat-button color="primary"><mat-icon>list</mat-icon> All Purchases</button>
+          <span class="spacer"></span>
+          <button mat-stroked-button type="reset"><mat-icon>refresh</mat-icon> Clear</button>
+          <button class="mr-0" mat-flat-button color="primary" type="submit"><mat-icon>save</mat-icon> Save</button>
+        </div>
+      </mat-card-content>
+      <mat-card-actions align="right">
+        <span class="text-warning">*</span> Required Fields
+      </mat-card-actions>
+    </mat-card>
+  </form>
+</div>

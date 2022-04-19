@@ -1,0 +1,106 @@
+<app-no-privilege *ngIf="!privilege.update" message="No privilege to change porder details"></app-no-privilege>
+<div *ngIf="this.porder && privilege.update">
+  <app-page-header
+    title="Porder Change Form of {{ porder.code }}"
+    [breadcrumbSegments]="['Porders', 'Show All Porders', 'Change Details of ' + porder.code]"
+  ></app-page-header>
+  <form [formGroup]="form" (ngSubmit)="submit()" #ngForm="ngForm">
+    <mat-card>
+      <mat-card-content>
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md-4">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Date of Ordered</mat-label>
+                <input matInput [matDatepicker]="pickerdoordered" formControlName="doordered" required>
+                <mat-datepicker-toggle matSuffix [for]="pickerdoordered"></mat-datepicker-toggle>
+                <mat-datepicker #pickerdoordered></mat-datepicker>
+                <mat-hint>Ex: 2021/01/01</mat-hint>
+                <mat-error *ngIf="doorderedField.invalid">
+                  <span *ngIf="doorderedField.errors.required">Date of Ordered is required</span>
+                  <span *ngIf="doorderedField.errors.server">{{doorderedField.errors.server.join(', ')}}</span>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-md-4">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Date of Required</mat-label>
+                <input matInput [matDatepicker]="pickerdorequired" formControlName="dorequired" required>
+                <mat-datepicker-toggle matSuffix [for]="pickerdorequired"></mat-datepicker-toggle>
+                <mat-datepicker #pickerdorequired></mat-datepicker>
+                <mat-hint>Ex: 2021/01/12</mat-hint>
+                <mat-error *ngIf="dorequiredField.invalid">
+                  <span *ngIf="dorequiredField.errors.required">Date of Required is required</span>
+                  <span *ngIf="dorequiredField.errors.server">{{dorequiredField.errors.server.join(', ')}}</span>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-md-4">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Date of Received</mat-label>
+                <input matInput [matDatepicker]="pickerdoreceived" formControlName="doreceived" >
+                <mat-datepicker-toggle matSuffix [for]="pickerdoreceived"></mat-datepicker-toggle>
+                <mat-datepicker #pickerdoreceived></mat-datepicker>
+                <mat-hint>Ex: 2021/01/12</mat-hint>
+                <mat-error *ngIf="doreceivedField.invalid">
+                  <span *ngIf="doreceivedField.errors.server">{{doreceivedField.errors.server.join(', ')}}</span>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Supplier</mat-label>
+            <mat-select formControlName="supplier" required>
+              <mat-option *ngFor="let supplier of suppliers" [value]="supplier.id">{{supplier.name}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="supplierField.invalid">
+              <span *ngIf="supplierField.errors.required">Select at lease one supplier</span>
+              <span *ngIf="supplierField.errors.server">{{supplierField.errors.server.join(', ')}}</span>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <h3 class="mb-0 mat-subheading-1 font-weight-light">Materials</h3>
+          <app-pordermaterial-update-sub-form [min]="0" [max]="0" formControlName="pordermaterials"></app-pordermaterial-update-sub-form>
+          <div class="error-box" *ngIf="pordermaterialsField.invalid && !pordermaterialsField.pristine">
+            <p *ngIf="pordermaterialsField.errors.min">Should has at least 0 materials</p>
+            <p *ngIf="pordermaterialsField.errors.max">Maximum allowed only 0 Materials</p>
+                <span *ngIf="pordermaterialsField.errors.server">{{pordermaterialsField.errors.server.join(', ')}}</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Order Status</mat-label>
+            <mat-select formControlName="porderstatus" required>
+              <mat-option *ngFor="let porderstatus of porderstatuses" [value]="porderstatus.id">{{porderstatus.name}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="porderstatusField.invalid">
+              <span *ngIf="porderstatusField.errors.required">Select at lease one order status</span>
+              <span *ngIf="porderstatusField.errors.server">{{porderstatusField.errors.server.join(', ')}}</span>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Description</mat-label>
+            <textarea matInput formControlName="description" ></textarea>
+            <mat-hint>Ex: </mat-hint>
+            <mat-error *ngIf="descriptionField.invalid">
+              <span *ngIf="descriptionField.errors.server">{{descriptionField.errors.server.join(', ')}}</span>
+              <span *ngIf="descriptionField.errors.minlength">Description should has at least null characters. </span>
+              <span *ngIf="descriptionField.errors.maxlength">Description can have a maximum of 5000 characters. </span>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="text-right mt-5 d-flex">
+          <button *ngIf="privilege.showAll" routerLink="/porders" class="ml-0" mat-raised-button color="primary"><mat-icon>list</mat-icon> All Porders</button>
+          <span class="spacer"></span>
+          <button mat-stroked-button type="button" (click)="discardChanges()"><mat-icon>refresh</mat-icon> Clear</button>
+          <button class="mr-0" mat-flat-button color="primary" type="submit"><mat-icon>save</mat-icon> Save</button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </form>
+</div>
