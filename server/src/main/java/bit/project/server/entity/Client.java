@@ -43,6 +43,9 @@ public class Client {
     @JsonIgnoreProperties({"creator", "status", "tocreation", "rolelist"})
     private User creator;
 
+    @ManyToOne
+    //@JsonIgnoreProperties({"code", "name", "district", "vehicle", "ref"})
+    private Route route;
 
     @ManyToOne
     private Clientstatus clientstatus;

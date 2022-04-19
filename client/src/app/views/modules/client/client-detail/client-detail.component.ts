@@ -8,6 +8,9 @@ import {ClientService} from '../../../../services/client.service';
 import {DeleteConfirmDialogComponent} from '../../../../shared/views/delete-confirm-dialog/delete-confirm-dialog.component';
 import {LoggedUser} from '../../../../shared/logged-user';
 import {UsecaseList} from '../../../../usecase-list';
+import {RoutestatusService} from '../../../../services/routestatus.service';
+import {Route} from '../../../../entities/route';
+import {RouteService} from '../../../../services/route.service';
 import {PageRequest} from '../../../../shared/page-request';
 
 @Component({

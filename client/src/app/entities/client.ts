@@ -1,5 +1,6 @@
 import {User} from './user';
 import {DataPage} from '../shared/data-page';
+import {Route} from './route';
 import {Clientstatus} from './clientstatus';
 
 export class Client{
@@ -14,6 +15,7 @@ export class Client{
   email: string;
   fax: string;
   creator: User;
+  route: Route;
   clientstatus: Clientstatus;
 
 

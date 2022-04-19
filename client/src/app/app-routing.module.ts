@@ -28,6 +28,14 @@ import {SupplierTableComponent} from './views/modules/supplier/supplier-table/su
 import {SupplierFormComponent} from './views/modules/supplier/supplier-form/supplier-form.component';
 import {SupplierDetailComponent} from './views/modules/supplier/supplier-detail/supplier-detail.component';
 import {SupplierUpdateFormComponent} from './views/modules/supplier/supplier-update-form/supplier-update-form.component';
+import {RouteTableComponent} from './views/modules/route/route-table/route-table.component';
+import {RouteFormComponent} from './views/modules/route/route-form/route-form.component';
+import {RouteUpdateFormComponent} from './views/modules/route/route-update-form/route-update-form.component';
+import {VehicleUpdateFormComponent} from './views/modules/vehicle/vehicle-update-form/vehicle-update-form.component';
+import {VehicleDetailComponent} from './views/modules/vehicle/vehicle-detail/vehicle-detail.component';
+import {VehicleTableComponent} from './views/modules/vehicle/vehicle-table/vehicle-table.component';
+import {VehicleFormComponent} from './views/modules/vehicle/vehicle-form/vehicle-form.component';
+import {RouteDetailComponent} from './views/modules/route/route-detail/route-detail.component';
 import {PurchaseTableComponent} from './views/modules/purchase/purchase-table/purchase-table.component';
 import {PurchaseFormComponent} from './views/modules/purchase/purchase-form/purchase-form.component';
 import {PurchaseDetailComponent} from './views/modules/purchase/purchase-detail/purchase-detail.component';
@@ -85,6 +93,16 @@ const routes: Routes = [
       {path: 'suppliers/:id', component: SupplierDetailComponent},
       {path: 'suppliers/edit/:id', component: SupplierUpdateFormComponent},
 
+      {path: 'routes', component: RouteTableComponent},
+      {path: 'routes/add', component: RouteFormComponent},
+      {path: 'routes/:id', component: RouteDetailComponent},
+      {path: 'routes/edit/:id', component: RouteUpdateFormComponent},
+
+
+      {path: 'vehicles', component: VehicleTableComponent},
+      {path: 'vehicles/add', component: VehicleFormComponent},
+      {path: 'vehicles/:id', component: VehicleDetailComponent},
+      {path: 'vehicles/edit/:id', component: VehicleUpdateFormComponent},
 
       {path: 'purchases', component: PurchaseTableComponent},
       {path: 'purchases/add', component: PurchaseFormComponent},

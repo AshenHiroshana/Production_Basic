@@ -1,0 +1,106 @@
+<app-no-privilege *ngIf="!privilege.update" message="No privilege to change route details"></app-no-privilege>
+<div *ngIf="this.route && privilege.update">
+  <app-page-header
+    title="Route Change Form of {{ route.code + '-' + route.name }}"
+    [breadcrumbSegments]="['Routes', 'Show All Routes', 'Change Details of ' + route.code + '-' + route.name]">
+  </app-page-header>
+  <form [formGroup]="form" (ngSubmit)="submit()" #ngForm="ngForm">
+    <mat-card>
+      <mat-card-content>
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md-9">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="name" required>
+                <mat-hint>Ex: Kandy</mat-hint>
+                <mat-error *ngIf="nameField.invalid">
+                  <span *ngIf="nameField.errors.required">Name is required</span>
+                  <span *ngIf="nameField.errors.server">{{nameField.errors.server.join(', ')}}</span>
+                  <span *ngIf="nameField.errors.minlength">Name should has at least 3 characters. </span>
+                  <span *ngIf="nameField.errors.maxlength">Name can have a maximum of 255 characters. </span>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-md-3">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>District</mat-label>
+                <mat-select formControlName="district" required>
+                  <mat-option *ngFor="let district of districts" [value]="district.id">{{district.name}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="districtField.invalid">
+                  <span *ngIf="districtField.errors.required">District is required</span>
+                  <span *ngIf="districtField.errors.server">{{districtField.errors.server.join(', ')}}</span>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md-4">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Vehicle</mat-label>
+                <mat-select formControlName="vehicle" required>
+                  <mat-option *ngFor="let vehicle of vehicles" [value]="vehicle.id">{{vehicle.no}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="vehicleField.invalid">
+                  <span *ngIf="vehicleField.errors.required">Vehicle is required</span>
+                  <span *ngIf="vehicleField.errors.server">{{vehicleField.errors.server.join(', ')}}</span>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-md-4">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Ref</mat-label>
+                <mat-select formControlName="ref" required>
+                  <mat-option *ngFor="let ref of refs" [value]="ref.id">{{ref.nametitle.name}}.{{ref.callingname}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="refField.invalid">
+                  <span *ngIf="refField.errors.required">Ref is required</span>
+                  <span *ngIf="refField.errors.server">{{refField.errors.server.join(', ')}}</span>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-md-4">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Time Gap</mat-label>
+                <input type="number" matInput formControlName="timegap">
+                <mat-hint>Ex: 7</mat-hint>
+                <mat-error *ngIf="timegapField.invalid">
+                  <span *ngIf="timegapField.errors.required">Time Gap is required</span>
+                  <span *ngIf="timegapField.errors.server">{{timegapField.errors.server.join(', ')}}</span>
+                  <span *ngIf="timegapField.errors.pattern">Time Gap is invalid.</span>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Description</mat-label>
+            <textarea matInput formControlName="description" ></textarea>
+            <mat-error *ngIf="descriptionField.invalid">
+              <span *ngIf="descriptionField.errors.server">{{descriptionField.errors.server.join(', ')}}</span>
+              <span *ngIf="descriptionField.errors.minlength">Description should has at least null characters. </span>
+              <span *ngIf="descriptionField.errors.maxlength">Description can have a maximum of 65535 characters. </span>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="text-right mt-5 d-flex">
+          <button *ngIf="privilege.showAll" routerLink="/routes" class="ml-0" mat-flat-button color="primary"><mat-icon>list</mat-icon> All Routes</button>
+          <span class="spacer"></span>
+          <button mat-stroked-button type="reset"><mat-icon>refresh</mat-icon> Clear</button>
+          <button class="mr-0" mat-flat-button color="primary" type="submit"><mat-icon>save</mat-icon> Save</button>
+        </div>
+      </mat-card-content>
+
+      <mat-card-actions align="right">
+        <span class="text-warning">*</span> Required Fields
+      </mat-card-actions>
+    </mat-card>
+  </form>
+</div>

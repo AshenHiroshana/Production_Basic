@@ -1,0 +1,77 @@
+<app-no-privilege *ngIf="!privilege.showOne" message="No privilege to show more details of a route"></app-no-privilege>
+<app-object-not-found *ngIf="loaded && !route1" message="Route Not Found"></app-object-not-found>
+<app-loading *ngIf="!loaded"></app-loading>
+<div *ngIf="route1 && privilege.showOne">
+  <app-page-header
+    title="Route Detail Page of {{ route1.code + ' - ' + route1.name }}"
+    [breadcrumbSegments]="['Routes', 'Show All', 'Details of ' + route1.code ]">
+  </app-page-header>
+  <div class="row">
+    <div class="col-md-4">
+      <mat-card class="example-card">
+        <mat-card-content>
+          <table class="w-100 table-striped custom-data-table">
+            <tbody>
+            <tr>
+              <th>Created Date</th>
+              <td>{{route1.tocreation | date}}</td>
+            </tr>
+            <tr>
+              <th>Created Time</th>
+              <td>{{route1.tocreation | date: 'shortTime': '+0530'}}</td>
+            </tr>
+            <tr>
+              <th>Creator</th>
+              <td>{{getUserDisplayName(route1.creator)}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="col-md-8">
+      <mat-card class="example-card">
+        <mat-card-content>
+          <table class="w-100 table-striped custom-data-table">
+            <tbody>
+            <tr>
+              <th>Code</th>
+              <td>{{route1.code}}</td>
+            </tr>
+            <tr>
+              <th>Name</th>
+              <td>{{route1.name}}</td>
+            </tr>
+            <tr>
+              <th>District</th>
+              <td>{{route1.district.name}}</td>
+            </tr>
+            <tr>
+              <th>Vehicle</th>
+              <td>{{route1.vehicle.no}}</td>
+            </tr>
+            <tr>
+            <tr>
+              <th>Ref</th>
+              <td>{{route1.ref.nametitle}}.{{route1.ref.callingname}}</td>
+            </tr>
+            <tr *ngIf="route1.description">
+              <th>Description</th>
+              <td [innerHTML]="route1.description | nl2br"></td>
+            </tr>
+            </tbody>
+          </table>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+  <div class="d-flex mt-5">
+    <button *ngIf="privilege.delete" (click)="delete()" class="ml-0" mat-raised-button color="warn"><mat-icon>delete</mat-icon> Delete</button>
+    <span class="spacer"></span>
+    <button *ngIf="privilege.update" routerLink="/routes/edit/{{route1.id}}" mat-raised-button color="accent"><mat-icon>edit</mat-icon> Change</button>
+    <button *ngIf="privilege.add" routerLink="/routes/add" mat-stroked-button><mat-icon>add</mat-icon> New Route</button>
+    <button *ngIf="privilege.showAll" routerLink="/routes" class="mr-0" mat-raised-button color="primary"><mat-icon>list</mat-icon> All Routes</button>
+  </div>
+</div>
+
+

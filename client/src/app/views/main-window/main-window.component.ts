@@ -127,6 +127,8 @@ export class MainWindowComponent implements OnInit, OnDestroy {
     const clientLink = new LinkItem('Client Management', '', 'supervised_user_circle');
     const supplierLink = new LinkItem('Supplier Management', '', 'local_shipping');
     const employeeLink = new LinkItem('Employee Management', '/', 'trip_origin');
+    const routeLink = new LinkItem('Route Management', '/', 'directions');
+    const vehicleLink = new LinkItem('Vehicle Management', '/', 'commute');
     const purchaseLink = new LinkItem('Purchase Management', '/', 'shopping_cart');
     const materialLink = new LinkItem('Material Management', '/', 'store');
     const porderLink = new LinkItem('Purchase Order Management', '/', 'queue');
@@ -173,6 +175,21 @@ export class MainWindowComponent implements OnInit, OnDestroy {
     showAllSupplierLink.addUsecaseId(UsecaseList.SHOW_ALL_SUPPLIERS);
     supplierLink.children.push(showAllSupplierLink);
 
+    const addNewRouteLink = new LinkItem('Add New Route', 'routes/add', 'add');
+    addNewRouteLink.addUsecaseId(UsecaseList.ADD_ROUTE);
+    routeLink.children.push(addNewRouteLink);
+
+    const showAllRouteLink = new LinkItem('Show All Route', 'routes', 'list');
+    showAllRouteLink.addUsecaseId(UsecaseList.SHOW_ALL_ROUTES);
+    routeLink.children.push(showAllRouteLink);
+
+    const addNewVehicleLink = new LinkItem('Add New Vehicle', 'vehicles/add', 'add');
+    addNewVehicleLink.addUsecaseId(UsecaseList.ADD_VEHICLE);
+    vehicleLink.children.push(addNewVehicleLink);
+
+    const showAllVehicleLink = new LinkItem('Show All Vehicle', 'vehicles', 'list');
+    showAllVehicleLink.addUsecaseId(UsecaseList.SHOW_ALL_VEHICLES);
+    vehicleLink.children.push(showAllVehicleLink);
 
     const addNewPurchaseLink = new LinkItem('Add New Purchase', 'purchases/add', 'add');
     addNewPurchaseLink.addUsecaseId(UsecaseList.ADD_PURCHASE);
@@ -221,6 +238,9 @@ export class MainWindowComponent implements OnInit, OnDestroy {
     this.linkItems.push(employeeLink);
     this.linkItems.push(clientLink);
     this.linkItems.push(supplierLink);
+    this.linkItems.push(routeLink);
+    this.linkItems.push(vehicleLink);
+
     this.linkItems.push(materialLink);
     this.linkItems.push(porderLink);
     this.linkItems.push(purchaseLink);

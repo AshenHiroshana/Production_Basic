@@ -74,6 +74,10 @@ public class Employee{
     @JsonIgnoreProperties({"creator","status","tocreation","roleList"})
     private User creator;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "ref")
+    private List<Route> routeList;
+
 
     public Employee(Integer id){
         this.id = id;

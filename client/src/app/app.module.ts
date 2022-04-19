@@ -74,6 +74,14 @@ import { SupplierFormComponent } from './views/modules/supplier/supplier-form/su
 import { SupplierTableComponent } from './views/modules/supplier/supplier-table/supplier-table.component';
 import { SupplierDetailComponent } from './views/modules/supplier/supplier-detail/supplier-detail.component';
 import { SupplierUpdateFormComponent } from './views/modules/supplier/supplier-update-form/supplier-update-form.component';
+import { RouteFormComponent } from './views/modules/route/route-form/route-form.component';
+import { RouteDetailComponent } from './views/modules/route/route-detail/route-detail.component';
+import { RouteTableComponent } from './views/modules/route/route-table/route-table.component';
+import { RouteUpdateFormComponent } from './views/modules/route/route-update-form/route-update-form.component';
+import { VehicleDetailComponent } from './views/modules/vehicle/vehicle-detail/vehicle-detail.component';
+import { VehicleFormComponent } from './views/modules/vehicle/vehicle-form/vehicle-form.component';
+import { VehicleTableComponent } from './views/modules/vehicle/vehicle-table/vehicle-table.component';
+import { VehicleUpdateFormComponent } from './views/modules/vehicle/vehicle-update-form/vehicle-update-form.component';
 import {MaterialTableComponent} from './views/modules/material/material-table/material-table.component';
 import {MaterialFormComponent} from './views/modules/material/material-form/material-form.component';
 import {MaterialDetailComponent} from './views/modules/material/material-detail/material-detail.component';
@@ -149,6 +157,14 @@ import {PurchaseDetailComponent} from "./views/modules/purchase/purchase-detail/
         SupplierTableComponent,
         SupplierDetailComponent,
         SupplierUpdateFormComponent,
+        RouteFormComponent,
+        RouteDetailComponent,
+        RouteTableComponent,
+        RouteUpdateFormComponent,
+        VehicleDetailComponent,
+        VehicleFormComponent,
+        VehicleTableComponent,
+        VehicleUpdateFormComponent,
       PordermaterialUpdateSubFormComponent,
       PordermaterialSubFormComponent,
       PorderTableComponent,

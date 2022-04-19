@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {Client} from '../../../../entities/client';
+import {Route} from '../../../../entities/route';
 import {AbstractComponent} from '../../../../shared/abstract-component';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ClientService} from '../../../../services/client.service';
+import {RouteService} from '../../../../services/route.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {ActivatedRoute, Router} from '@angular/router';
 import {LoggedUser} from '../../../../shared/logged-user';
@@ -22,6 +24,8 @@ export class ClientUpdateFormComponent extends AbstractComponent implements OnIn
   selectedId: number;
   client: Client;
   clientstatuses: Clientstatus [];
+  routes: Route[] = [];
+
   form = new FormGroup({
     description: new FormControl(null, [
       Validators.maxLength(25535)
@@ -107,6 +111,7 @@ export class ClientUpdateFormComponent extends AbstractComponent implements OnIn
   constructor(
     public  clientService: ClientService,
     public  clientstatusService: ClientstatusService,
+    private routeService: RouteService,
     private snackBar: MatSnackBar,
     private router: Router,
     private route: ActivatedRoute) {
@@ -131,6 +136,14 @@ export class ClientUpdateFormComponent extends AbstractComponent implements OnIn
       console.log(e);
       this.snackBar.open('Something is wrong', null, {duration: 2000});
     });
+
+    this.routeService.getAllBasic(new PageRequest()).then((routeDataPage) => {
+      this.routes = routeDataPage.content;
+    }).catch((e) => {
+      console.log(e);
+      this.snackBar.open('Something is wrong', null, {duration: 2000});
+    });
+
     this.client = await this.clientService.get(this.selectedId);
     this.setValues();
   }
@@ -171,8 +184,11 @@ export class ClientUpdateFormComponent extends AbstractComponent implements OnIn
     if (this.faxField.pristine) {
       this.faxField.setValue(this.client.fax);
     }
+    if (this.routeField.pristine) {
+      this.routeField.setValue(this.client.route.id);
+    }
     if (this.clientstatusFiled.pristine) {
-      this.clientstatusFiled.setValue(this.client.clientstatus.id);
+      this.clientstatusFiled.setValue(this.client.route.id);
     }
   }
 
@@ -187,6 +203,7 @@ export class ClientUpdateFormComponent extends AbstractComponent implements OnIn
     newclient.address = this.addressField.value;
     newclient.email = this.emailField.value;
     newclient.fax = this.faxField.value;
+    newclient.route = this.routeField.value;
     newclient.clientstatus = this.clientstatusFiled.value;
 
     console.log(newclient);

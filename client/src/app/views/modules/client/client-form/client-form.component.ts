@@ -7,7 +7,9 @@ import {LoggedUser} from '../../../../shared/logged-user';
 import {UsecaseList} from '../../../../usecase-list';
 import {ResourceLink} from '../../../../shared/resource-link';
 import {Client} from '../../../../entities/client';
+import {Route} from '../../../../entities/route';
 import {Router} from '@angular/router';
+import {RouteService} from '../../../../services/route.service';
 import {PageRequest} from '../../../../shared/page-request';
 
 @Component({
@@ -17,7 +19,7 @@ import {PageRequest} from '../../../../shared/page-request';
 })
 export class ClientFormComponent extends AbstractComponent implements OnInit {
 
-
+  routes: Route[] = [];
 
   form = new FormGroup({
       description: new FormControl(null, [
@@ -58,7 +60,9 @@ export class ClientFormComponent extends AbstractComponent implements OnInit {
         Validators.maxLength(10),
         Validators.pattern('^([0][1-9][0-9]{8})$')
       ]),
-
+      route: new FormControl(null, [
+        Validators.required,
+      ]),
   });
   get descriptionField(): FormControl{
     return this.form.controls.description as FormControl;
@@ -94,6 +98,7 @@ export class ClientFormComponent extends AbstractComponent implements OnInit {
 
   constructor(
     public  clientService: ClientService,
+    private routeService: RouteService,
     private snackBar: MatSnackBar,
     private router: Router) {
     super();
@@ -108,7 +113,15 @@ export class ClientFormComponent extends AbstractComponent implements OnInit {
 
     this.updatePrivileges();
     if (!this.privilege.add) { return; }
-      }
+
+    this.routeService.getAllBasic(new PageRequest()).then((routeDataPage) => {
+      this.routes = routeDataPage.content;
+    }).catch((e) => {
+      console.log(e);
+      this.snackBar.open('Something is wrong', null, {duration: 2000});
+    });
+
+  }
 
   updatePrivileges(): any {
     this.privilege.add = LoggedUser.can(UsecaseList.ADD_CLIENT);
@@ -129,6 +142,7 @@ export class ClientFormComponent extends AbstractComponent implements OnInit {
     client.address = this.addressField.value;
     client.email = this.emailField.value;
     client.fax = this.faxField.value;
+    client.route = this.routeField.value;
 
     try{
       const resourceLink: ResourceLink = await this.clientService.add(client);
@@ -152,6 +166,7 @@ export class ClientFormComponent extends AbstractComponent implements OnInit {
           if (msg.address) { this.addressField.setErrors({server: msg.address}); knownError = true; }
           if (msg.email) { this.emailField.setErrors({server: msg.email}); knownError = true; }
           if (msg.fax) { this.faxField.setErrors({server: msg.fax}); knownError = true; }
+          if (msg.route) { this.routeField.setErrors({server: msg.route}); knownError = true; }
           if (!knownError) {
             this.snackBar.open('Validation Error', null, {duration: 2000});
           }

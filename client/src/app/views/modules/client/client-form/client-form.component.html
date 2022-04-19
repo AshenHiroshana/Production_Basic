@@ -19,7 +19,18 @@
                 </mat-error>
               </mat-form-field>
             </div>
-
+            <div class="col-md-3">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Route</mat-label>
+                <mat-select formControlName="route" required>
+                  <mat-option *ngFor="let route of routes" [value]="route.id">{{route.name}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="routeField.invalid">
+                  <span *ngIf="routeField.errors.required">Route is required</span>
+                  <span *ngIf="routeField.errors.server">{{routeField.errors.server.join(', ')}}</span>
+                </mat-error>
+              </mat-form-field>
+            </div>
           </div>
         </div>
 
