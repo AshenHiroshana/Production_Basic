@@ -1,0 +1,180 @@
+<app-no-privilege *ngIf="!privilege.update" message="No privilege to change branch details"></app-no-privilege>
+<div *ngIf="this.branch && privilege.update">
+  <app-page-header
+    title="Branch Change Form of {{ branch.code + ' - ' + branch.name}}"
+    [breadcrumbSegments]="['Branches', 'Show All Branches', 'Change Details of ' + branch.code]"
+  ></app-page-header>
+  <form [formGroup]="form" (ngSubmit)="submit()" #ngForm="ngForm">
+    <mat-card>
+      <mat-card-content>
+
+
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md-12">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="name" required>
+                <mat-hint>Ex: Kamal Perera</mat-hint>
+                <mat-error *ngIf="nameField.invalid">
+                  <span *ngIf="nameField.errors.required">Name is required</span>
+                  <span *ngIf="nameField.errors.server">{{nameField.errors.server.join(', ')}} </span>
+                  <span *ngIf="nameField.errors.minlength">Name should has at least null characters. </span>
+                  <span *ngIf="nameField.errors.maxlength">Name can have a maximum of 255 characters. </span>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+
+
+
+
+        <div class="form-group">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Type</mat-label>
+            <mat-select formControlName="branchtype" required>
+              <mat-option *ngFor="let branchtype of branchtypes" [value]="branchtype.id">{{branchtype.name}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="branchtypeField.invalid">
+              <span *ngIf="branchtypeField.errors.required">Type is required</span>
+              <span *ngIf="branchtypeField.errors.server">{{branchtypeField.errors.server.join(', ')}}</span>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-group">
+          <div class="row">
+
+            <div class="col-md-6">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Primary Contact</mat-label>
+                <input matInput formControlName="tel1" required>
+                <mat-hint>Ex: 0712345678</mat-hint>
+                <mat-error *ngIf="tel1Field.invalid">
+                  <span *ngIf="tel1Field.errors.required">Primary contact is required</span>
+                  <span *ngIf="tel1Field.errors.server">{{tel1Field.errors.server.join(', ')}} </span>
+                  <span *ngIf="tel1Field.errors.minlength">Primary contact length should be 10. </span>
+                  <span *ngIf="tel1Field.errors.maxlength">Primary contact length should be 10. </span>
+                  <span *ngIf="tel1Field.errors.pattern">Invalid Contact </span>
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-md-6">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Alternative Contact</mat-label>
+                <input matInput formControlName="tel2">
+                <mat-hint>Ex: 0712345678</mat-hint>
+                <mat-error *ngIf="tel2Field.invalid">
+                  <span *ngIf="tel2Field.errors.server">{{tel2Field.errors.server.join(', ')}} </span>
+                  <span *ngIf="tel2Field.errors.minlength">Alternative contact length should be 10. </span>
+                  <span *ngIf="tel2Field.errors.maxlength">Alternative contact length should be 10. </span>
+                  <span *ngIf="tel2Field.errors.pattern">Invalid Contact </span>
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+          </div>
+        </div>
+
+
+
+        <div class="form-group">
+          <div class="row">
+
+            <div class="col-md-6">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Email Address</mat-label>
+                <input matInput formControlName="email">
+                <mat-hint>Ex: example@gmail.com</mat-hint>
+                <mat-error *ngIf="emailField.invalid">
+                  <span *ngIf="emailField.errors.server">{{emailField.errors.server.join(', ')}} </span>
+                  <span *ngIf="emailField.errors.minlength">Email address should contain at least 3 characters. </span>
+                  <span *ngIf="emailField.errors.maxlength">Email address should contain at most 255 characters. </span>
+                  <span *ngIf="emailField.errors.pattern">Invalid email address </span>
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-md-6">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Fax Number</mat-label>
+                <input matInput formControlName="fax">
+                <mat-hint>Ex: 0112345678</mat-hint>
+                <mat-error *ngIf="faxField.invalid">
+                  <span *ngIf="faxField.errors.server">{{faxField.errors.server.join(', ')}} </span>
+                  <span *ngIf="faxField.errors.minlength">Fax number length should be 10. </span>
+                  <span *ngIf="faxField.errors.maxlength">Fax number length should be 10. </span>
+                  <span *ngIf="faxField.errors.pattern">Invalid fax number </span>
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+          </div>
+        </div>
+
+
+
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md-12">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Address</mat-label>
+                <textarea matInput formControlName="address" required></textarea>
+                <mat-hint>Ex: 123, Abc Road Colombo</mat-hint>
+                <mat-error *ngIf="addressField.invalid">
+                  <span *ngIf="addressField.errors.required">Address is required</span>
+                  <span *ngIf="addressField.errors.server">{{addressField.errors.server.join(', ')}} </span>
+                  <span *ngIf="addressField.errors.minlength">Address should has at least 4 characters. </span>
+                  <span *ngIf="addressField.errors.maxlength">Address should has at most 255 characters. </span>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Status</mat-label>
+            <mat-select formControlName="branchstatus" required>
+              <mat-option *ngFor="let branchstatus of branchstatuses" [value]="branchstatus.id">{{branchstatus.name}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="branchstatusField.invalid">
+              <span *ngIf="branchstatusField.errors.required">Status is required</span>
+              <span *ngIf="branchstatusField.errors.server">{{branchstatusField.errors.server.join(', ')}}</span>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+
+
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md-12">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Description</mat-label>
+                <textarea matInput formControlName="description"></textarea>
+                <mat-error *ngIf="descriptionField.invalid">
+                  <span *ngIf="descriptionField.errors.server">{{descriptionField.errors.server.join(', ')}} </span>
+                  <span *ngIf="descriptionField.errors.maxlength">Description should has at most 255 characters. </span>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+
+
+
+        <div class="text-right mt-5 d-flex">
+          <button *ngIf="privilege.showAll" routerLink="/branches" class="ml-0" mat-raised-button color="primary"><mat-icon>list</mat-icon> All Branches</button>
+          <span class="spacer"></span>
+          <button mat-stroked-button type="button" (click)="discardChanges()"><mat-icon>refresh</mat-icon> Discard Changes</button>
+          <button class="mr-0" mat-flat-button color="primary" type="submit"><mat-icon>save</mat-icon> Save</button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </form>
+</div>
+

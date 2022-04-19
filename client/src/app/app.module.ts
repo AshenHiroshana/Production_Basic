@@ -102,6 +102,10 @@ import {
 import {PurchaseTableComponent} from "./views/modules/purchase/purchase-table/purchase-table.component";
 import {PurchaseFormComponent} from "./views/modules/purchase/purchase-form/purchase-form.component";
 import {PurchaseDetailComponent} from "./views/modules/purchase/purchase-detail/purchase-detail.component";
+import { BranchDetailComponent } from './views/modules/branch/branch-detail/branch-detail.component';
+import { BranchFormComponent } from './views/modules/branch/branch-form/branch-form.component';
+import { BranchTableComponent } from './views/modules/branch/branch-table/branch-table.component';
+import { BranchUpdateFormComponent } from './views/modules/branch/branch-update-form/branch-update-form.component';
 
 
 
@@ -177,6 +181,10 @@ import {PurchaseDetailComponent} from "./views/modules/purchase/purchase-detail/
       PurchaseFormComponent,
       PurchaseDetailComponent,
       MaterialdisposalmaterialSubFormComponent,
+      BranchDetailComponent,
+      BranchFormComponent,
+      BranchTableComponent,
+      BranchUpdateFormComponent,
 
     ],
   imports: [

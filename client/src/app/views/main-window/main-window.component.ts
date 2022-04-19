@@ -132,6 +132,7 @@ export class MainWindowComponent implements OnInit, OnDestroy {
     const porderLink = new LinkItem('Purchase Order Management', '/', 'queue');
     const supplierpaymentLink = new LinkItem('Supplier Payment Management', '/', 'payment');
     const materialdisposalLink = new LinkItem('Material Disposal Management', '/', 'delete_forever');
+    const branchLink = new LinkItem('BranchManagement', '', 'local_shipping');
 
     const showUserLink = new LinkItem('Show All Users', '/users', 'list');
     showUserLink.addUsecaseId(UsecaseList.SHOW_ALL_USERS);
@@ -214,6 +215,15 @@ export class MainWindowComponent implements OnInit, OnDestroy {
     showAllMaterialdisposalLink.addUsecaseId(UsecaseList.SHOW_ALL_MATERIALDISPOSALS);
     materialdisposalLink.children.push(showAllMaterialdisposalLink);
 
+    const addNewBranchLink = new LinkItem('Add New Branch', 'branches/add', 'add');
+    addNewBranchLink.addUsecaseId(UsecaseList.ADD_BRANCH);
+    branchLink.children.push(addNewBranchLink);
+
+    const showAllBranchLink = new LinkItem('Show All Branch', 'branches', 'list');
+    showAllBranchLink.addUsecaseId(UsecaseList.SHOW_ALL_BRANCHES);
+    branchLink.children.push(showAllBranchLink);
+
+
 
     this.linkItems.push(dashboardLink);
     this.linkItems.push(userLink);
@@ -226,6 +236,7 @@ export class MainWindowComponent implements OnInit, OnDestroy {
     this.linkItems.push(purchaseLink);
     this.linkItems.push(supplierpaymentLink);
     this.linkItems.push(materialdisposalLink);
+    this.linkItems.push(branchLink);
 
   }
 

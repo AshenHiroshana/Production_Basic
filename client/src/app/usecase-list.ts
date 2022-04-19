@@ -61,4 +61,9 @@ export abstract class UsecaseList {
   public static readonly ADD_PURCHASE = 59;
   public static readonly UPDATE_PURCHASE = 60;
   public static readonly DELETE_PURCHASE = 61;
+  public static readonly SHOW_ALL_BRANCHES = 62;
+  public static readonly SHOW_BRANCH_DETAILS = 63;
+  public static readonly ADD_BRANCH = 64;
+  public static readonly UPDATE_BRANCH = 65;
+  public static readonly DELETE_BRANCH = 66;
 }

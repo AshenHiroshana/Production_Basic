@@ -48,6 +48,10 @@ import {MaterialTableComponent} from './views/modules/material/material-table/ma
 import {MaterialFormComponent} from './views/modules/material/material-form/material-form.component';
 import {MaterialDetailComponent} from './views/modules/material/material-detail/material-detail.component';
 import {MaterialUpdateFormComponent} from './views/modules/material/material-update-form/material-update-form.component';
+import {BranchTableComponent} from './views/modules/branch/branch-table/branch-table.component';
+import {BranchFormComponent} from './views/modules/branch/branch-form/branch-form.component';
+import {BranchDetailComponent} from './views/modules/branch/branch-detail/branch-detail.component';
+import {BranchUpdateFormComponent} from './views/modules/branch/branch-update-form/branch-update-form.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -115,6 +119,11 @@ const routes: Routes = [
       {path: 'suppliers/add', component: SupplierFormComponent},
       {path: 'suppliers/:id', component: SupplierDetailComponent},
       {path: 'suppliers/edit/:id', component: SupplierUpdateFormComponent},
+
+      {path: 'branches', component: BranchTableComponent},
+      {path: 'branches/add', component: BranchFormComponent},
+      {path: 'branches/:id', component: BranchDetailComponent},
+      {path: 'branches/edit/:id', component: BranchUpdateFormComponent},
 
       {path: 'dashboard', component: DashboardComponent},
       {path: '', component: DashboardComponent},

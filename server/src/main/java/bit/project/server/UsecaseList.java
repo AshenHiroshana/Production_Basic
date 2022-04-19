@@ -63,7 +63,12 @@ public enum UsecaseList{
     @SystemModule("Material") SHOW_MATERIAL_DETAILS(58),
     @SystemModule("Material") ADD_MATERIAL(59),
     @SystemModule("Material") UPDATE_MATERIAL(60),
-    @SystemModule("Material") DELETE_MATERIAL(61);
+    @SystemModule("Material") DELETE_MATERIAL(61),
+    @SystemModule("Branch") SHOW_ALL_BRANCHES(62),
+    @SystemModule("Branch") SHOW_BRANCH_DETAILS(63),
+    @SystemModule("Branch") ADD_BRANCH(64),
+    @SystemModule("Branch") UPDATE_BRANCH(65),
+    @SystemModule("Branch") DELETE_BRANCH(66);
 
     public final int value;
 
