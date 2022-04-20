@@ -134,6 +134,8 @@ export class MainWindowComponent implements OnInit, OnDestroy {
     const porderLink = new LinkItem('Purchase Order Management', '/', 'queue');
     const supplierpaymentLink = new LinkItem('Supplier Payment Management', '/', 'payment');
     const materialdisposalLink = new LinkItem('Material Disposal Management', '/', 'delete_forever');
+    const productLink = new LinkItem('Product Management', '', 'list_alt');
+    const trainingsessionLink = new LinkItem('Training Session Management', '', 'store');
 
     const showUserLink = new LinkItem('Show All Users', '/users', 'list');
     showUserLink.addUsecaseId(UsecaseList.SHOW_ALL_USERS);
@@ -231,6 +233,22 @@ export class MainWindowComponent implements OnInit, OnDestroy {
     showAllMaterialdisposalLink.addUsecaseId(UsecaseList.SHOW_ALL_MATERIALDISPOSALS);
     materialdisposalLink.children.push(showAllMaterialdisposalLink);
 
+    const addNewProductLink = new LinkItem('Add New Product', 'products/add', 'add');
+    addNewProductLink.addUsecaseId(UsecaseList.ADD_PRODUCT);
+    productLink.children.push(addNewProductLink);
+
+    const showAllProductLink = new LinkItem('Show All Product', 'products', 'list');
+    showAllProductLink.addUsecaseId(UsecaseList.SHOW_ALL_PRODUCTS);
+    productLink.children.push(showAllProductLink);
+
+    const addNewTrainingsessionLink = new LinkItem('Add New Trainingsession', 'trainingsessions/add', 'add');
+    addNewTrainingsessionLink.addUsecaseId(UsecaseList.ADD_TRAININGSESSION);
+    trainingsessionLink.children.push(addNewTrainingsessionLink);
+
+    const showAllTrainingsessionLink = new LinkItem('Show All Trainingsession', 'trainingsessions', 'list');
+    showAllTrainingsessionLink.addUsecaseId(UsecaseList.SHOW_ALL_TRAININGSESSIONS);
+    trainingsessionLink.children.push(showAllTrainingsessionLink);
+
 
     this.linkItems.push(dashboardLink);
     this.linkItems.push(userLink);
@@ -246,7 +264,8 @@ export class MainWindowComponent implements OnInit, OnDestroy {
     this.linkItems.push(purchaseLink);
     this.linkItems.push(supplierpaymentLink);
     this.linkItems.push(materialdisposalLink);
-
+    this.linkItems.push(productLink);
+    this.linkItems.push(trainingsessionLink);
   }
 
   changeTheme(e): void{

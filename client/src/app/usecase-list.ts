@@ -61,4 +61,14 @@ export abstract class UsecaseList {
   public static readonly ADD_PURCHASE = 59;
   public static readonly UPDATE_PURCHASE = 60;
   public static readonly DELETE_PURCHASE = 61;
+  public static readonly SHOW_ALL_PRODUCTS = 62;
+  public static readonly SHOW_PRODUCT_DETAILS = 63;
+  public static readonly ADD_PRODUCT = 64;
+  public static readonly UPDATE_PRODUCT = 65;
+  public static readonly DELETE_PRODUCT = 66;
+  public static readonly SHOW_ALL_TRAININGSESSIONS = 67;
+  public static readonly SHOW_TRAININGSESSION_DETAILS = 68;
+  public static readonly ADD_TRAININGSESSION = 69;
+  public static readonly UPDATE_TRAININGSESSION = 70;
+  public static readonly DELETE_TRAININGSESSION = 71;
 }

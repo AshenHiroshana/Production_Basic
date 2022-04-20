@@ -1,0 +1,117 @@
+<app-no-privilege message="No privilege to add new trainingsession" *ngIf="!privilege.add"></app-no-privilege>
+<div *ngIf="privilege.add">
+  <app-page-header title="Training Session Form" [breadcrumbSegments]="['Trainingsessions', 'Add New Trainingsession']"></app-page-header>
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <mat-card>
+      <mat-card-content>
+
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md-6">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Client</mat-label>
+                <mat-select formControlName="client" required>
+                  <mat-option *ngFor="let client of clients" [value]="client.id">{{client.code}} - {{client.name}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="clientField.invalid">
+                  <span *ngIf="clientField.errors.required">Client is required</span>
+                  <span *ngIf="clientField.errors.server">{{clientField.errors.server.join(', ')}}</span>
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-md-6">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Date</mat-label>
+                <input matInput formControlName="date" required type="date">
+                <mat-hint>Ex:12/31/2021</mat-hint>
+                <mat-error *ngIf="dateField.invalid">
+                  <span *ngIf="dateField.errors.required">Date is required</span>
+                  <span *ngIf="dateField.errors.server">{{dateField.errors.server.join(', ')}}</span>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md-4">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Start Time</mat-label>
+                <input matInput formControlName="stime" required type="time">
+                <mat-hint>Ex:4.57PM</mat-hint>
+                <mat-error *ngIf="stimeField.invalid">
+                  <span *ngIf="stimeField.errors.required">Start Time is required</span>
+                  <span *ngIf="stimeField.errors.server">{{stimeField.errors.server.join(', ')}}</span>
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-md-4">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>End Time</mat-label>
+                <input matInput formControlName="etime" required type="time">
+                <mat-hint>Ex:5.55PM</mat-hint>
+                <mat-error *ngIf="etimeField.invalid">
+                  <span *ngIf="etimeField.errors.required">End Time is required</span>
+                  <span *ngIf="etimeField.errors.server">{{etimeField.errors.server.join(', ')}}</span>
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-md-4">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Venue</mat-label>
+                <input matInput formControlName="venue" required type="text">
+                <mat-hint>Ex:Bank Of Ceylon Colombo Branch</mat-hint>
+                <mat-error *ngIf="venueField.invalid">
+                  <span *ngIf="venueField.errors.required">Venue is required</span>
+                  <span *ngIf="venueField.errors.server">{{venueField.errors.server.join(', ')}}</span>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Employees</mat-label>
+            <app-dual-listbox [getToString]="getEmployeeName" [min]="1" placeholder="Add Employees to here" [sourceData]="employees" formControlName="employees"></app-dual-listbox>
+            <mat-error *ngIf="employeesField.invalid">
+              <span *ngIf="employeesField.errors.min">Select at least 1 Employee</span>
+              <span *ngIf="employeesField.errors.server">{{employeesField.errors.server.join(', ')}}</span>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-group">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Description</mat-label>
+            <textarea matInput formControlName="description" ></textarea>
+            <mat-error *ngIf="descriptionField.invalid">
+              <span *ngIf="descriptionField.errors.server">{{descriptionField.errors.server.join(', ')}}</span>
+              <span *ngIf="descriptionField.errors.minlength">Description should has at least null characters. </span>
+              <span *ngIf="descriptionField.errors.maxlength">Description can have a maximum of 65535 characters. </span>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="text-right mt-5 d-flex">
+          <button *ngIf="privilege.showAll" routerLink="/trainingsessions" class="ml-0" mat-flat-button color="primary"><mat-icon>list</mat-icon> All Training Sessions</button>
+          <span class="spacer"></span>
+          <button mat-stroked-button type="reset"><mat-icon>refresh</mat-icon> Clear</button>
+          <button class="mr-0" mat-flat-button color="primary" type="submit"><mat-icon>save</mat-icon> Save</button>
+        </div>
+
+      </mat-card-content>
+
+      <mat-card-actions align="right">
+        <span class="text-warning">*</span> Required Fields
+      </mat-card-actions>
+
+    </mat-card>
+  </form>
+</div>
+
+

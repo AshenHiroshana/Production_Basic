@@ -1,0 +1,100 @@
+<app-no-privilege message="No privilege to add new product" *ngIf="!privilege.add"></app-no-privilege>
+<div *ngIf="privilege.add">
+  <app-page-header title="Product Form" [breadcrumbSegments]="['Products', 'Add New Product']"></app-page-header>
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <mat-card>
+      <mat-card-content>
+        <div class="form-group">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name" required>
+            <mat-hint>Ex:Dry Powder</mat-hint>
+            <mat-error *ngIf="nameField.invalid">
+              <span *ngIf="nameField.errors.required">Name is required</span>
+              <span *ngIf="nameField.errors.server">{{nameField.errors.server.join(', ')}}</span>
+              <span *ngIf="nameField.errors.minlength">Name should has at least null characters. </span>
+              <span *ngIf="nameField.errors.maxlength">Name can have a maximum of 255 characters. </span>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-group">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Photo</mat-label>
+            <app-file-chooser placeholder="No chosen photos to show" [min]="0" [max]="1" [accept]="['image/*']" formControlName="photo"></app-file-chooser>
+            <mat-hint>Select any image/* file</mat-hint>
+            <mat-error *ngIf="photoField.invalid">
+              <span *ngIf="photoField.errors.server">{{photoField.errors.server.join(', ')}}</span>
+              <span *ngIf="photoField.errors.max">Maximum allowed photo count is 1</span>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Producttype</mat-label>
+            <mat-select formControlName="producttype" required>
+              <mat-option *ngFor="let producttype of producttypes" [value]="producttype.id">{{producttype.name}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="producttypeField.invalid">
+              <span *ngIf="producttypeField.errors.required">Producttype is required</span>
+              <span *ngIf="producttypeField.errors.server">{{producttypeField.errors.server.join(', ')}}</span>
+            </mat-error>
+          </mat-form-field>
+        </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md-6">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Price</mat-label>
+            <input type="number" matInput formControlName="price" required>
+            <mat-hint>Ex: 10.50</mat-hint>
+            <mat-error *ngIf="priceField.invalid">
+              <span *ngIf="priceField.errors.required">Price is required</span>
+              <span *ngIf="priceField.errors.server">{{priceField.errors.server.join(', ')}}</span>
+              <span *ngIf="priceField.errors.min">Price should be at least 0.25</span>
+              <span *ngIf="priceField.errors.max">Price should not be grater than 99999999</span>
+              <span *ngIf="priceField.errors.pattern"> Invalid Price</span>
+            </mat-error>
+          </mat-form-field>
+        </div>
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Description</mat-label>
+            <textarea matInput formControlName="description" ></textarea>
+            <mat-error *ngIf="descriptionField.invalid">
+              <span *ngIf="descriptionField.errors.server">{{descriptionField.errors.server.join(', ')}}</span>
+              <span *ngIf="descriptionField.errors.minlength">Description should has at least null characters. </span>
+              <span *ngIf="descriptionField.errors.maxlength">Description can have a maximum of 65535 characters. </span>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="text-right mt-5 d-flex">
+          <button *ngIf="privilege.showAll" routerLink="/products" class="ml-0" mat-flat-button color="primary"><mat-icon>list</mat-icon> All Products</button>
+          <span class="spacer"></span>
+          <button mat-stroked-button type="reset"><mat-icon>refresh</mat-icon> Clear</button>
+          <button class="mr-0" mat-flat-button color="primary" type="submit"><mat-icon>save</mat-icon> Save</button>
+        </div>
+
+      </mat-card-content>
+
+      <mat-card-actions align="right">
+        <span class="text-warning">*</span> Required Fields
+      </mat-card-actions>
+
+    </mat-card>
+  </form>
+</div>
+
+
+

@@ -63,7 +63,18 @@ public enum UsecaseList{
     @SystemModule("Material") SHOW_MATERIAL_DETAILS(58),
     @SystemModule("Material") ADD_MATERIAL(59),
     @SystemModule("Material") UPDATE_MATERIAL(60),
-    @SystemModule("Material") DELETE_MATERIAL(61);
+    @SystemModule("Material") DELETE_MATERIAL(61),
+    @SystemModule("Product") SHOW_ALL_PRODUCTS(62),
+    @SystemModule("Product") SHOW_PRODUCT_DETAILS(63),
+    @SystemModule("Product") ADD_PRODUCT(64),
+    @SystemModule("Product") UPDATE_PRODUCT(65),
+    @SystemModule("Product") DELETE_PRODUCT(66),
+    @SystemModule("Trainingsession") SHOW_ALL_TRAININGSESSIONS(67),
+    @SystemModule("Trainingsession") SHOW_TRAININGSESSION_DETAILS(68),
+    @SystemModule("Trainingsession") ADD_TRAININGSESSION(69),
+    @SystemModule("Trainingsession") UPDATE_TRAININGSESSION(70),
+    @SystemModule("Trainingsession") DELETE_TRAININGSESSION(71);
+
 
     public final int value;
 

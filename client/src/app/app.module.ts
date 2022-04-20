@@ -110,6 +110,14 @@ import {
 import {PurchaseTableComponent} from "./views/modules/purchase/purchase-table/purchase-table.component";
 import {PurchaseFormComponent} from "./views/modules/purchase/purchase-form/purchase-form.component";
 import {PurchaseDetailComponent} from "./views/modules/purchase/purchase-detail/purchase-detail.component";
+import { ProductFormComponent } from './views/modules/product/product-form/product-form.component';
+import { ProductTableComponent } from './views/modules/product/product-table/product-table.component';
+import { ProductDetailComponent } from './views/modules/product/product-detail/product-detail.component';
+import { ProductUpdateFormComponent } from './views/modules/product/product-update-form/product-update-form.component';
+import { TrainingsessionFormComponent } from './views/modules/trainingsession/trainingsession-form/trainingsession-form.component';
+import { TrainingsessionTableComponent } from './views/modules/trainingsession/trainingsession-table/trainingsession-table.component';
+import { TrainingsessionDetailComponent } from './views/modules/trainingsession/trainingsession-detail/trainingsession-detail.component';
+import { TrainingsessionUpdateFormComponent } from './views/modules/trainingsession/trainingsession-update-form/trainingsession-update-form.component';
 
 
 
@@ -193,6 +201,14 @@ import {PurchaseDetailComponent} from "./views/modules/purchase/purchase-detail/
       PurchaseFormComponent,
       PurchaseDetailComponent,
       MaterialdisposalmaterialSubFormComponent,
+      ProductFormComponent,
+      ProductTableComponent,
+      ProductDetailComponent,
+      ProductUpdateFormComponent,
+      TrainingsessionFormComponent,
+      TrainingsessionTableComponent,
+      TrainingsessionDetailComponent,
+      TrainingsessionUpdateFormComponent,
 
     ],
   imports: [
@@ -229,6 +245,7 @@ import {PurchaseDetailComponent} from "./views/modules/purchase/purchase-detail/
     MatRadioModule,
     MatProgressSpinnerModule,
     MatTabsModule,
+
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true },

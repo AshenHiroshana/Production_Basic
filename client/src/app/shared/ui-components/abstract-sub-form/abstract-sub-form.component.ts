@@ -139,11 +139,11 @@ export abstract class AbstractSubFormComponent<T> implements OnInit, ControlValu
       errors = {...errors, min: true};
     }
 
-    const customErrors = this.customValidations();
+    const clientrors = this.customValidations();
 
-    if (customErrors !== null){
+    if (clientrors !== null){
       valid = false;
-      errors = {...errors, ...customErrors};
+      errors = {...errors, ...clientrors};
     }
 
     return valid ? null : errors;

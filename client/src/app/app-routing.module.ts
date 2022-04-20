@@ -56,6 +56,14 @@ import {MaterialTableComponent} from './views/modules/material/material-table/ma
 import {MaterialFormComponent} from './views/modules/material/material-form/material-form.component';
 import {MaterialDetailComponent} from './views/modules/material/material-detail/material-detail.component';
 import {MaterialUpdateFormComponent} from './views/modules/material/material-update-form/material-update-form.component';
+import {ProductTableComponent} from './views/modules/product/product-table/product-table.component';
+import {ProductFormComponent} from './views/modules/product/product-form/product-form.component';
+import {ProductDetailComponent} from './views/modules/product/product-detail/product-detail.component';
+import {ProductUpdateFormComponent} from './views/modules/product/product-update-form/product-update-form.component';
+import {TrainingsessionTableComponent} from './views/modules/trainingsession/trainingsession-table/trainingsession-table.component';
+import {TrainingsessionFormComponent} from './views/modules/trainingsession/trainingsession-form/trainingsession-form.component';
+import {TrainingsessionDetailComponent} from './views/modules/trainingsession/trainingsession-detail/trainingsession-detail.component';
+import {TrainingsessionUpdateFormComponent} from './views/modules/trainingsession/trainingsession-update-form/trainingsession-update-form.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -133,6 +141,16 @@ const routes: Routes = [
       {path: 'suppliers/add', component: SupplierFormComponent},
       {path: 'suppliers/:id', component: SupplierDetailComponent},
       {path: 'suppliers/edit/:id', component: SupplierUpdateFormComponent},
+
+      {path: 'products', component: ProductTableComponent},
+      {path: 'products/add', component: ProductFormComponent},
+      {path: 'products/:id', component: ProductDetailComponent},
+      {path: 'products/edit/:id', component: ProductUpdateFormComponent},
+
+      {path: 'trainingsessions', component: TrainingsessionTableComponent},
+      {path: 'trainingsessions/add', component: TrainingsessionFormComponent},
+      {path: 'trainingsessions/:id', component: TrainingsessionDetailComponent},
+      {path: 'trainingsessions/edit/:id', component: TrainingsessionUpdateFormComponent},
 
       {path: 'dashboard', component: DashboardComponent},
       {path: '', component: DashboardComponent},
